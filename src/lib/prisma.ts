@@ -87,12 +87,12 @@ export const prisma = basePrisma.$extends({
     $allModels: {
       async $allOperations({ model, operation, args, query }) {
         // 1. Intercept Where clause for exact match queries
-        if (args.where) {
+        if ('where' in args && args.where) {
           args.where = processWhere(model, args.where);
         }
 
         // 2. Intercept Data writes
-        if (args.data) {
+        if ('data' in args && args.data) {
           if (Array.isArray(args.data)) {
             args.data = args.data.map(d => encryptData(model, d));
           } else {
