@@ -31,6 +31,7 @@ export default function IntelligenceDossier() {
   const [exporting, setExporting] = useState<boolean>(false);
 
   const handleExport = async () => {
+    if (!activeEntityId) return;
     const passphrase = window.prompt("Enter a secure passphrase to encrypt the exported dossier:");
     if (!passphrase) return;
     
