@@ -127,8 +127,8 @@ export default function Header({ searchQuery, onSearchChange }: HeaderProps) {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         console.log(`User inactive for ${timeoutDuration}ms. Logging out.`);
-        setInactivityLoggedOut(true);},
-        [logout, timeoutDuration, setInactivityLoggedOut]);
+        setInactivityLoggedOut(true);
+      }, timeoutDuration);
     };
 
     const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
