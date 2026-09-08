@@ -127,9 +127,8 @@ export default function Header({ searchQuery, onSearchChange }: HeaderProps) {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         console.log(`User inactive for ${timeoutDuration}ms. Logging out.`);
-        setInactivityLoggedOut(true);
-        logout();
-      }, timeoutDuration);
+        setInactivityLoggedOut(true);},
+        [logout, timeoutDuration, setInactivityLoggedOut]);
     };
 
     const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
@@ -142,7 +141,7 @@ export default function Header({ searchQuery, onSearchChange }: HeaderProps) {
       clearTimeout(timeoutId);
       events.forEach(event => document.removeEventListener(event, resetTimer));
     };
-  }, [logout, timeoutDuration]);
+  }, [logout, timeoutDuration, setInactivityLoggedOut]);
 
   const saveSearchHistory = (newHistory: string[]) => {
     setSearchHistory(newHistory);
