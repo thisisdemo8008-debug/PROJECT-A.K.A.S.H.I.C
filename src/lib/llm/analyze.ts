@@ -1,4 +1,4 @@
-const LM_STUDIO_URL = "http://localhost:1234/v1/chat/completions";
+const LM_STUDIO_URL = process.env.LOCAL_LLM_URL || "http://localhost:1234/v1/chat/completions";
 
 const CATEGORIES = [
     "NARCOTICS_SALE", "NARCOTICS_PRODUCTION", "MONEY_LAUNDERING",
@@ -32,11 +32,10 @@ export async function analyzeIntel(rawText: string, source: string): Promise<Ana
     });
 
     if (!res.ok) throw new Error(`LM Studio error: ${res.status} ${await res.text()}`);
-
     const data = await res.json();
     const raw = data.choices[0].message.content.trim();
-
     const clean = raw.replace(/^```json\s*|```$/g, "").trim();
+
     let parsed: AnalysisResult;
     try {
         parsed = JSON.parse(clean);
